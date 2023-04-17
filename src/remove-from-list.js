@@ -15,30 +15,39 @@ const { ListNode } = require('../extensions/list-node.js');
  * the output should be [1, 2, 4, 5]
  *
  * Singly - linked lists are already defined using interface
- * class ListNode {
- *   constructor(x) {
- *     this.value = x;
- *     this.next = null;
- *   }
+ *
  * }
  */
-function removeKFromList(l, k) {
+// class ListNode {
+//      constructor(x) {
+//        this.value = x;
+//       this.next = null;
+//      }}
 
-  let dummy = new ListNode(0);
-  dummy.next = l;
-  let prev = dummy;
-  let Number = l;
-  while (Number !== null) {
-    if (Number.value === k) {
-      prev.next = Number.next;
-    } else {
-      prev = Number;
+     function removeKFromList(l, k) {
+      // обработка случая, когда список пуст
+      if (!l) {
+        return null;
+      }
+      
+      // обработка случая, когда первый элемент списка должен быть удален
+      while (l && l.value === k) {
+        l = l.next;
+      }
+      
+      let current = l;
+      
+      // обход списка и удаление элементов
+      while (current && current.next) {
+        if (current.next.value === k) {
+          current.next = current.next.next;
+        } else {
+          current = current.next;
+        }
+      }
+      
+      return l;
     }
-    curr = Number.next;
-  }
-  return dummy.next;
-
-}
 module.exports = {
   removeKFromList
 };
